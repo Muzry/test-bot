@@ -1,0 +1,39 @@
+prowjob_namespace: prowjob
+pod_namespace: prowjob
+log_level: debug
+
+deck:
+  tide_update_period: 1s
+
+sinker:
+  resync_period: 1m
+  max_prowjob_age: 48h
+  max_pod_age: 48h
+  terminated_pod_ttl: 30m
+
+tide:
+  sync_period: 2m
+  queries:
+  - orgs:
+    - erda-project
+    labels:
+    - lgtm
+    - approved
+    missingLabels:
+    - do-not-merge
+    - do-not-merge/hold
+    - do-not-merge/work-in-progress
+    - do-not-merge/invalid-owners-file
+    - do-not-merge/invalid-commit-message
+    - do-not-merge/release-note-label-needed
+    - needs-rebase
+    # excludedRepos:
+    # - caicloud/cyclone
+  merge_method:
+    erda-project: squash
+  blocker_label: tide/merge-blocker
+  squash_label: tide/merge-method-squash
+  rebase_label: tide/merge-method-rebase
+  merge_label: tide/merge-method-merge
+
+
